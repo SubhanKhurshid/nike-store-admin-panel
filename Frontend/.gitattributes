@@ -1,0 +1,2 @@
+# Set to LF line endings for specific files
+*.js text eol=lf

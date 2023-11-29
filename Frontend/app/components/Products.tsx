@@ -3,6 +3,7 @@ import axios from "axios";
 import { StaticImageData } from "next/image";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Product {
   productID: number;
@@ -16,6 +17,7 @@ interface Product {
 }
 
 function Products() {
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   console.log(products);
 
@@ -34,6 +36,19 @@ function Products() {
 
     fetchData();
   }, []);
+
+  const handleDelete = async (productId: number) => {
+    console.log(productId);
+
+    try {
+      await axios.delete(
+        `http://localhost:8800/api/data/view-products/${productId}`
+      );
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -102,12 +117,12 @@ function Products() {
                   >
                     Edit
                   </a>
-                  <a
-                    href="#"
+                  <button
+                    onClick={() => handleDelete(product.productID)}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Delete
-                  </a>
+                  </button>
                 </td>
               </tr>
             ))}

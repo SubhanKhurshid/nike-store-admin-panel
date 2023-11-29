@@ -128,7 +128,7 @@ function AddCard() {
         </div>
         <div
           className="bg-black rounded-md shadow-2xl shadow-pink-900 -mt-24"
-          style={{ transform: "scale(0.6)" }}
+          style={{ transform: "scale(1)" }}
         >
           <div className="flex space-x-5">
             <div>

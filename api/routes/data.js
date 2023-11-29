@@ -1,5 +1,10 @@
 import express from "express";
-import { addData, checkOrders, getProducts } from "../controllers/data.js";
+import {
+  addData,
+  checkOrders,
+  deleteProduct,
+  getProducts,
+} from "../controllers/data.js";
 import { getCategory } from "../controllers/data.js";
 import { getColors } from "../controllers/data.js";
 import { getSizes } from "../controllers/data.js";
@@ -10,5 +15,6 @@ router.post("/", addData);
 router.get("/categories", getCategory);
 router.get("/colors", getColors);
 router.get("/sizes", getSizes);
+router.delete("/view-products/:id", deleteProduct);
 
 export default router;

@@ -104,6 +104,23 @@ export const addData = (req, res) => {
   });
 };
 
+export const deleteProduct = (req, res) => {
+  const productId = req.params.id;
+  const q = "DELETE FROM products WHERE `productID` = ?";
+
+  db.query(q, [productId], (err, data) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    if (data.affectedRows === 0) {
+      return res.status(404).json("Product not found");
+    }
+
+    return res.json("Product has been deleted!");
+  });
+};
+
 export const getCategory = (req, res) => {
   const query = "SELECT * FROM categories";
   db.query(query, [req.params.id], (err, data) => {

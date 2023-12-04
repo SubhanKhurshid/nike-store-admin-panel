@@ -112,7 +112,7 @@ function Products() {
                 <td className="px-6 py-4">{product.sizeName}</td>
                 <td className="px-6 py-4">
                   <a
-                    href="#"
+                    href={"/edit-product"}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-4"
                   >
                     Edit

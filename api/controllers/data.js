@@ -4,7 +4,6 @@ export const checkOrders = (req, res) => {
     SELECT
       od.order_id,
       o.order_date,
-      o.address,
       o.total_amount,
       od.quantity,
       od.size_id,
@@ -83,6 +82,28 @@ export const getProducts = (req, res) => {
     if (err) return res.status(500).json(err);
 
     return res.status(200).json(data);
+  });
+};
+
+export const editData = (req, res) => {
+  const productId = req.params.productId; // Assuming the product ID is in the URL parameter
+
+  const query =
+    "UPDATE products SET `productName`=?, `productDes`=?, `productPrice`=?, `categoryId`=?, `colorId`=?, `sizeId`=?, `productImage`=? WHERE `productId`=?";
+  const values = [
+    req.body.productName,
+    req.body.productDes,
+    req.body.productPrice,
+    req.body.categoryId,
+    req.body.colorId,
+    req.body.sizeId,
+    req.body.productImg,
+    productId,
+  ];
+
+  db.query(query, values, (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.json("Data has been updated.");
   });
 };
 

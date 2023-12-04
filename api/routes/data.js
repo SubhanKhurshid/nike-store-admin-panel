@@ -3,6 +3,7 @@ import {
   addData,
   checkOrders,
   deleteProduct,
+  editData,
   getProducts,
 } from "../controllers/data.js";
 import { getCategory } from "../controllers/data.js";
@@ -16,5 +17,6 @@ router.get("/categories", getCategory);
 router.get("/colors", getColors);
 router.get("/sizes", getSizes);
 router.delete("/view-products/:id", deleteProduct);
+router.put("/edit-product/:id", editData);
 
 export default router;

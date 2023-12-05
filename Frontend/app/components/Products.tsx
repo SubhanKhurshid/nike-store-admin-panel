@@ -1,6 +1,5 @@
 "use client";
 import axios from "axios";
-import { StaticImageData } from "next/image";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -10,7 +9,7 @@ interface Product {
   productDes: string;
   productName: string;
   productPrice: number;
-  productImage: StaticImageData;
+  productImage: string;
   categoryName: string;
   colorName: string;
   sizeName: number;
@@ -19,7 +18,6 @@ interface Product {
 function Products() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
-  console.log(products);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +26,6 @@ function Products() {
           "http://localhost:8800/api/data/view-products"
         );
         setProducts(res.data);
-        console.log(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -38,8 +35,6 @@ function Products() {
   }, []);
 
   const handleDelete = async (productId: number) => {
-    console.log(productId);
-
     try {
       await axios.delete(
         `http://localhost:8800/api/data/view-products/${productId}`
@@ -48,6 +43,11 @@ function Products() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleUpdate = (e: any, productID: number) => {
+    e.preventDefault();
+    router.push(`/update-product/${productID}`);
   };
 
   return (
@@ -111,12 +111,12 @@ function Products() {
                 <td className="px-6 py-4">{product.colorName}</td>
                 <td className="px-6 py-4">{product.sizeName}</td>
                 <td className="px-6 py-4">
-                  <a
-                    href={"/edit-product"}
+                  <button
+                    onClick={(e) => handleUpdate(e, product.productID)}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-4"
                   >
                     Edit
-                  </a>
+                  </button>
                   <button
                     onClick={() => handleDelete(product.productID)}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

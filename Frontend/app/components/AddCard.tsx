@@ -1,8 +1,25 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import nike from "../../public/shubham-mittal-sCXmwaVrBio-unsplash.jpg";
 import axios from "axios";
+import toast from "react-hot-toast/headless";
+import { useRouter } from "next/navigation";
+
+interface Categories {
+  categoryId: number;
+  name: string;
+}
+
+interface Sizes {
+  size_id: number;
+  size_name: string;
+}
+
+interface Colors {
+  color_id: number;
+  color_name: string;
+}
 
 function AddCard() {
   const [product, setProduct] = useState({
@@ -11,17 +28,16 @@ function AddCard() {
     productPrice: "",
   });
 
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState<Categories[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState<Colors[]>([]);
   const [selectedColor, setSelectedColor] = useState("");
-  const [sizes, setSizes] = useState([]);
+  const [sizes, setSizes] = useState<Sizes[]>([]);
   const [selectedSize, setSelectedSizes] = useState("");
   const [file, setFile] = useState("");
+  const router = useRouter();
 
   const uploadImage = async () => {
-    //hello
-
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -91,7 +107,9 @@ function AddCard() {
         sizeId: selectedSize,
         productImg: file ? imageUrl : "",
       });
-      console.log(response.data);
+
+      toast.success("Product added");
+      router.push("/view-products");
       setProduct({
         productName: "",
         productDes: "",
@@ -128,7 +146,7 @@ function AddCard() {
         </div>
         <div
           className="bg-black rounded-md shadow-2xl shadow-pink-900 -mt-24"
-          style={{ transform: "scale(1)" }}
+          style={{ transform: "scale(0.7)" }}
         >
           <div className="flex space-x-5">
             <div>
@@ -165,59 +183,65 @@ function AddCard() {
               />
               <label className="font-bold italic">Select Category</label>
               <select
-                className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
+                className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="categoryId"
                 id="category"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
-                <option className="font-bold italic">Select a category</option>
+                <option className="text-black font-bold italic">
+                  Select a category
+                </option>
                 {category.map((item) => (
                   <option
                     className="text-black"
                     key={item.categoryId}
                     value={item.categoryId}
                   >
-                    {item.name}
+                    {item.categoryId}
                   </option>
                 ))}
               </select>
 
               <label className="font-bold italic">Select Colors</label>
               <select
-                className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
+                className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="colorId"
                 id="color"
                 value={selectedColor}
                 onChange={(e) => setSelectedColor(e.target.value)}
               >
-                <option className="font-bold italic">Select a category</option>
+                <option className="text-black font-bold italic">
+                  Select color
+                </option>
                 {colors.map((item) => (
                   <option
                     className="text-black"
                     key={item.color_id}
                     value={item.color_id}
                   >
-                    {item.color_name}
+                    {item.color_id}
                   </option>
                 ))}
               </select>
               <label className="font-bold italic">Select Sizes</label>
               <select
-                className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
+                className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="sizeId"
                 id="sizes"
                 value={selectedSize}
                 onChange={(e) => setSelectedSizes(e.target.value)}
               >
-                <option className="font-bold italic">Select Size</option>
+                <option className="text-black font-bold italic">
+                  Select Size
+                </option>
                 {sizes.map((item) => (
                   <option
                     className="text-black"
                     key={item.size_id}
                     value={item.size_id}
                   >
-                    {item.size_name}
+                    {item.size_id}
                   </option>
                 ))}
               </select>

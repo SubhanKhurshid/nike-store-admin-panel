@@ -4,6 +4,6 @@ export const db = mysql.createConnection({
   connectionLimit: 100,
   host: "localhost",
   user: "root",
-  password: "root",
+  password: "subhan123",
   database: "ecommerce",
 });

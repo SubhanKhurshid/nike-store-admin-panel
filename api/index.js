@@ -3,8 +3,13 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import dataRoutes from "./routes/data.js";
 import multer from "multer";
+import { diskStorage } from "multer";
+import { dirname } from "path";
+import path from "path";
+import { fileURLToPath } from "url";
 const app = express();
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 app.use(express.json());
 app.use(
   cors({
@@ -15,7 +20,8 @@ app.use(
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../public/upload");
+    const uploadPath = path.join(__dirname, "../api/public/upload");
+    cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);

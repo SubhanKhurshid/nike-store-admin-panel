@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import nike from "../../public/shubham-mittal-sCXmwaVrBio-unsplash.jpg";
 import Image from "next/image";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 function EditCard() {
+  const router = useRouter();
   const [product, setProduct] = useState({
     productName: "",
     productDes: "",
@@ -25,7 +26,9 @@ function EditCard() {
 
     try {
       const formData = new FormData();
+      console.log(file);
       formData.append("file", file);
+      console.log(file);
       const res = await axios.post(
         "http://localhost:8800/api/upload",
         formData
@@ -89,9 +92,9 @@ function EditCard() {
           productName: product.productName,
           productDes: product.productDes,
           productPrice: product.productPrice,
-          categoryId: selectedCategory,
-          colorId: selectedColor,
-          sizeId: selectedSize,
+          // categoryId: selectedCategory,
+          // colorId: selectedColor,
+          // sizeId: selectedSize,
           productImg: file ? imageUrl : "",
         }
       );
@@ -105,6 +108,7 @@ function EditCard() {
       setSelectedCategory("");
       setSelectedColor("");
       setSelectedSizes("");
+      router.push("view-products");
     } catch (e) {
       console.log(e);
     }
@@ -167,7 +171,7 @@ function EditCard() {
                 value={product.productPrice}
                 onChange={(e) => handleChange(e)}
               />
-              <label className="font-bold italic">Select Category</label>
+              {/* <label className="font-bold italic">Select Category</label>
               <select
                 className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="categoryId"
@@ -185,8 +189,8 @@ function EditCard() {
                     {item.name}
                   </option>
                 ))}
-              </select>
-
+              </select> */}
+              {/* 
               <label className="font-bold italic">Select Colors</label>
               <select
                 className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
@@ -205,8 +209,8 @@ function EditCard() {
                     {item.color_name}
                   </option>
                 ))}
-              </select>
-              <label className="font-bold italic">Select Sizes</label>
+              </select> */}
+              {/* <label className="font-bold italic">Select Sizes</label>
               <select
                 className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="sizeId"
@@ -224,7 +228,7 @@ function EditCard() {
                     {item.size_name}
                   </option>
                 ))}
-              </select>
+              </select> */}
               <div className="flex flex-col space-y-4 pl-20">
                 <label className="text-white font-bold pl-12">
                   Product Image

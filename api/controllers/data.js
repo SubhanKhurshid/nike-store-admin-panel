@@ -86,17 +86,17 @@ export const getProducts = (req, res) => {
 };
 
 export const editData = (req, res) => {
-  const productId = req.params.productId; // Assuming the product ID is in the URL parameter
+  const productId = req.params.id;
 
   const query =
-    "UPDATE products SET `productName`=?, `productDes`=?, `productPrice`=?, `categoryId`=?, `colorId`=?, `sizeId`=?, `productImage`=? WHERE `productId`=?";
+    "UPDATE products SET `productName`=?, `productDes`=?, `productPrice`=?, `productImage`=? WHERE `productId`=?";
   const values = [
     req.body.productName,
     req.body.productDes,
     req.body.productPrice,
-    req.body.categoryId,
+    // req.body.categoryId,
     req.body.colorId,
-    req.body.sizeId,
+    //   req.body.sizeId,
     req.body.productImg,
     productId,
   ];
@@ -109,14 +109,12 @@ export const editData = (req, res) => {
 
 export const addData = (req, res) => {
   const query =
-    "INSERT INTO products(`productName`, `productDes`, `productPrice`, `categoryId`, `colorId`, `sizeId`, `productImg`) VALUES (?)";
+    "INSERT INTO products(`productName`, `productDes`, `productPrice`, `productImg`) VALUES (?)";
   const values = [
     req.body.productName,
     req.body.productDes,
     req.body.productPrice,
-    req.body.categoryId,
-    req.body.colorId,
-    req.body.sizeId,
+
     req.body.productImg,
   ];
   db.query(query, [values], (err, data) => {

@@ -42,9 +42,11 @@ function EditCard() {
   const uploadImage = async () => {
     try {
       const formData = new FormData();
+      console.log(file);
       formData.append("file", file);
+      console.log(file);
       const res = await axios.post(
-        "http://localhost:8800/api/upload",
+        "http://localhost:5000/api/upload",
         formData
       );
       return res.data;
@@ -56,7 +58,7 @@ function EditCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/data/sizes");
+        const res = await axios.get("http://localhost:5000/api/data/sizes");
         setSizes(res.data);
       } catch (e) {
         console.log(e);
@@ -68,7 +70,7 @@ function EditCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/data/colors");
+        const res = await axios.get("http://localhost:5000/api/data/colors");
         setColors(res.data);
       } catch (e) {
         console.log(e);
@@ -81,7 +83,7 @@ function EditCard() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8800/api/data/categories"
+          "http://localhost:5000/api/data/categories"
         );
         setCategory(response.data);
       } catch (err) {
@@ -101,15 +103,15 @@ function EditCard() {
     const imageUrl = await uploadImage();
     try {
       const response = await axios.put(
-        `http://localhost:8800/api/data/edit-product/${id}`,
+        `http://localhost:5000/api/data/edit-product/${id}`,
         {
           productID: id,
           productName: product.productName,
           productDes: product.productDes,
           productPrice: product.productPrice,
-          categoryId: selectedCategory,
-          colorId: selectedColor,
-          sizeId: selectedSize,
+          // categoryId: selectedCategory,
+          // colorId: selectedColor,
+          // sizeId: selectedSize,
           productImg: file ? imageUrl : "",
         }
       );
@@ -125,6 +127,7 @@ function EditCard() {
       setSelectedCategory("");
       setSelectedColor("");
       setSelectedSizes("");
+      router.push("view-products");
     } catch (e) {
       console.log(e);
     }
@@ -188,7 +191,7 @@ function EditCard() {
                 value={product.productPrice}
                 onChange={(e) => handleChange(e)}
               />
-              <label className="font-bold italic">Select Category</label>
+              {/* <label className="font-bold italic">Select Category</label>
               <select
                 className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="categoryId"
@@ -208,8 +211,8 @@ function EditCard() {
                     {item.categoryId}
                   </option>
                 ))}
-              </select>
-
+              </select> */}
+              {/* 
               <label className="font-bold italic">Select Colors</label>
               <select
                 className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
@@ -230,8 +233,8 @@ function EditCard() {
                     {item.color_id}
                   </option>
                 ))}
-              </select>
-              <label className="font-bold italic">Select Sizes</label>
+              </select> */}
+              {/* <label className="font-bold italic">Select Sizes</label>
               <select
                 className="text-black  border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="sizeId"
@@ -251,7 +254,7 @@ function EditCard() {
                     {item.size_id}
                   </option>
                 ))}
-              </select>
+              </select> */}
               <div className="flex flex-col space-y-4 pl-20">
                 <label className="text-white font-bold pl-12">
                   Product Image

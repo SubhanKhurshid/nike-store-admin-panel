@@ -42,7 +42,7 @@ function AddCard() {
       const formData = new FormData();
       formData.append("file", file);
       const res = await axios.post(
-        "http://localhost:8800/api/upload",
+        "http://localhost:5000/api/upload",
         formData
       );
       return res.data;
@@ -54,7 +54,7 @@ function AddCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/data/sizes");
+        const res = await axios.get("http://localhost:5000/api/data/sizes");
         setSizes(res.data);
       } catch (e) {
         console.log(e);
@@ -66,7 +66,7 @@ function AddCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/data/colors");
+        const res = await axios.get("http://localhost:5000/api/data/colors");
         setColors(res.data);
       } catch (e) {
         console.log(e);
@@ -79,7 +79,7 @@ function AddCard() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8800/api/data/categories"
+          "http://localhost:5000/api/data/categories"
         );
         setCategory(response.data);
       } catch (err) {
@@ -98,7 +98,7 @@ function AddCard() {
     e.preventDefault();
     const imageUrl = await uploadImage();
     try {
-      const response = await axios.post("http://localhost:8800/api/data/", {
+      const response = await axios.post("http://localhost:5000/api/data/", {
         productName: product.productName,
         productDes: product.productDes,
         productPrice: product.productPrice,
@@ -107,6 +107,7 @@ function AddCard() {
         sizeId: selectedSize,
         productImg: file ? imageUrl : "",
       });
+      console.log("done");
 
       toast.success("Product added");
       router.push("/view-products");

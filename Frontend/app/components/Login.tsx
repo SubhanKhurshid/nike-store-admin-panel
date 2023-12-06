@@ -6,8 +6,8 @@ import { toast } from "react-hot-toast";
 import Image from "next/image";
 
 function Login() {
-  const userEmail = "admin@admin.com";
-  const userPassword = "admin";
+  const userEmail = "abc@abc.com";
+  const userPassword = "abc";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

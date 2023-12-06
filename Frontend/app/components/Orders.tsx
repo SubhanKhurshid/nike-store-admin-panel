@@ -24,7 +24,7 @@ function Orders() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8800/api/data/check-orders"
+          "http://localhost:5000/api/data/check-orders"
         );
         setOrders(res.data);
       } catch (error) {

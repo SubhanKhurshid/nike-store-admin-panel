@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-module.exports = nextConfig;
-module.exports = {
+const nextConfig = {
   images: {
-    domains: ["static.nike.com"],
+    domains: ["localhost", "res.cloudinary.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "**",
+      },
+    ],
   },
 };
+
+module.exports = nextConfig;

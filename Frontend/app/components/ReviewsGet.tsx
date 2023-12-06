@@ -17,7 +17,7 @@ function ReviewsGet() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/data/reviews");
+        const res = await axios.get("http://localhost:5000/api/data/reviews");
         setReview(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);

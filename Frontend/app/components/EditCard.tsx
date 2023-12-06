@@ -3,34 +3,51 @@ import React, { useEffect, useState } from "react";
 import nike from "../../public/shubham-mittal-sCXmwaVrBio-unsplash.jpg";
 import Image from "next/image";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
+interface Categories {
+  categoryId: number;
+  name: string;
+}
+
+interface Sizes {
+  size_id: number;
+  size_name: string;
+}
+
+interface Colors {
+  color_id: number;
+  color_name: string;
+}
 
 function EditCard() {
   const router = useRouter();
+  const { id } = useParams();
   const [product, setProduct] = useState({
+    productID: id,
     productName: "",
     productDes: "",
     productPrice: "",
   });
 
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState<Categories[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState<Colors[]>([]);
   const [selectedColor, setSelectedColor] = useState("");
-  const [sizes, setSizes] = useState([]);
+  const [sizes, setSizes] = useState<Sizes[]>([]);
   const [selectedSize, setSelectedSizes] = useState("");
   const [file, setFile] = useState("");
 
   const uploadImage = async () => {
-    //hello
-
     try {
       const formData = new FormData();
       console.log(file);
       formData.append("file", file);
       console.log(file);
       const res = await axios.post(
-        "http://localhost:8800/api/upload",
+        "http://localhost:5000/api/upload",
         formData
       );
       return res.data;
@@ -42,7 +59,7 @@ function EditCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/data/sizes");
+        const res = await axios.get("http://localhost:5000/api/data/sizes");
         setSizes(res.data);
       } catch (e) {
         console.log(e);
@@ -54,7 +71,7 @@ function EditCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/data/colors");
+        const res = await axios.get("http://localhost:5000/api/data/colors");
         setColors(res.data);
       } catch (e) {
         console.log(e);
@@ -67,7 +84,7 @@ function EditCard() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8800/api/data/categories"
+          "http://localhost:5000/api/data/categories"
         );
         setCategory(response.data);
       } catch (err) {
@@ -81,14 +98,15 @@ function EditCard() {
     const value = e.target.value;
     setProduct({ ...product, [e.target.name]: value });
   };
-  const { id } = useParams();
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const imageUrl = await uploadImage();
     try {
       const response = await axios.put(
-        `http://localhost:8800/api/data/edit-product/${id}`,
+        `http://localhost:5000/api/data/edit-product/${id}`,
         {
+          productID: id,
           productName: product.productName,
           productDes: product.productDes,
           productPrice: product.productPrice,
@@ -98,8 +116,10 @@ function EditCard() {
           productImg: file ? imageUrl : "",
         }
       );
-      console.log(response.data);
+      toast.success("Updated");
+      router.push("/view-products");
       setProduct({
+        productID: id,
         productName: "",
         productDes: "",
         productPrice: "",
@@ -117,6 +137,7 @@ function EditCard() {
   const handleClear = (e: any) => {
     e.preventDefault();
     setProduct({
+      productID: id,
       productName: "",
       productDes: "",
       productPrice: "",
@@ -131,12 +152,12 @@ function EditCard() {
       <div className="flex flex-col items-center justify-center min-h-screen ">
         <div>
           <h1 className="text-white font-bold text-[30px] pl-10">
-            Add Product Here
+            Edit Product Here
           </h1>
         </div>
         <div
           className="bg-black rounded-md shadow-2xl shadow-pink-900 -mt-24"
-          style={{ transform: "scale(1)" }}
+          style={{ transform: "scale(0.7)" }}
         >
           <div className="flex space-x-5">
             <div>
@@ -173,59 +194,65 @@ function EditCard() {
               />
               {/* <label className="font-bold italic">Select Category</label>
               <select
-                className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
+                className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="categoryId"
                 id="category"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
-                <option className="font-bold italic">Select a category</option>
+                <option className="text-black font-bold italic">
+                  Select a category
+                </option>
                 {category.map((item) => (
                   <option
                     className="text-black"
                     key={item.categoryId}
                     value={item.categoryId}
                   >
-                    {item.name}
+                    {item.categoryId}
                   </option>
                 ))}
               </select> */}
               {/* 
               <label className="font-bold italic">Select Colors</label>
               <select
-                className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
+                className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="colorId"
                 id="color"
                 value={selectedColor}
                 onChange={(e) => setSelectedColor(e.target.value)}
               >
-                <option className="font-bold italic">Select a category</option>
+                <option className="text-black font-bold italic">
+                  Select a color
+                </option>
                 {colors.map((item) => (
                   <option
                     className="text-black"
                     key={item.color_id}
                     value={item.color_id}
                   >
-                    {item.color_name}
+                    {item.color_id}
                   </option>
                 ))}
               </select> */}
               {/* <label className="font-bold italic">Select Sizes</label>
               <select
-                className="border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
+                className="text-black  border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="sizeId"
                 id="sizes"
                 value={selectedSize}
                 onChange={(e) => setSelectedSizes(e.target.value)}
               >
-                <option className="font-bold italic">Select Size</option>
+                <option className="text-black  font-bold italic">
+                  Select Size
+                </option>
                 {sizes.map((item) => (
                   <option
                     className="text-black"
                     key={item.size_id}
                     value={item.size_id}
                   >
-                    {item.size_name}
+                    {item.size_id}
                   </option>
                 ))}
               </select> */}

@@ -19,16 +19,14 @@ interface Orders {
 
 function Orders() {
   const [orders, setOrders] = useState<Orders[]>([]);
-  console.log(orders);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8800/api/data/check-orders"
+          "http://localhost:5000/api/data/check-orders"
         );
         setOrders(res.data);
-        console.log(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

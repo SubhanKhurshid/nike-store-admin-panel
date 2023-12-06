@@ -89,19 +89,18 @@ export const editData = (req, res) => {
   const productId = req.params.id;
 
   const query =
-    "UPDATE products SET `productName`=?, `productDes`=?, `productPrice`=?, `productImage`=? WHERE `productId`=?";
+    "UPDATE products SET productName= ?, productDes= ?, productPrice= ?, productImage= ?, categoryId = ?, colorId = ?, sizeId = ? WHERE productID= ?";
   const values = [
     req.body.productName,
     req.body.productDes,
     req.body.productPrice,
-    // req.body.categoryId,
-    req.body.colorId,
-    //   req.body.sizeId,
     req.body.productImg,
-    productId,
+    req.body.categoryId,
+    req.body.colorId,
+    req.body.sizeId,
   ];
 
-  db.query(query, values, (err, data) => {
+  db.query(query, [...values, productId], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.json("Data has been updated.");
   });
@@ -109,12 +108,14 @@ export const editData = (req, res) => {
 
 export const addData = (req, res) => {
   const query =
-    "INSERT INTO products(`productName`, `productDes`, `productPrice`, `productImg`) VALUES (?)";
+    "INSERT INTO products(productName, productDes, productPrice, categoryId, colorId, sizeId, productImage) VALUES (?)";
   const values = [
     req.body.productName,
     req.body.productDes,
     req.body.productPrice,
-
+    req.body.categoryId,
+    req.body.colorId,
+    req.body.sizeId,
     req.body.productImg,
   ];
   db.query(query, [values], (err, data) => {
@@ -125,7 +126,7 @@ export const addData = (req, res) => {
 
 export const deleteProduct = (req, res) => {
   const productId = req.params.id;
-  const q = "DELETE FROM products WHERE `productID` = ?";
+  const q = "DELETE FROM products WHERE productID = ?";
 
   db.query(q, [productId], (err, data) => {
     if (err) {
@@ -158,6 +159,14 @@ export const getColors = (req, res) => {
 
 export const getSizes = (req, res) => {
   const query = "SELECT * FROM sizes";
+  db.query(query, [req.body.params], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
+
+export const getReviews = (req, res) => {
+  const query = "SELECT * FROM Reviews";
   db.query(query, [req.body.params], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);

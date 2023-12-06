@@ -89,7 +89,7 @@ export const editData = (req, res) => {
   const productId = req.params.id;
 
   const query =
-    "UPDATE products SET `productName`= ?, `productDes`= ?, `productPrice`= ?, `productImage`= ?, `categoryId` = ?, `colorId` = ?, `sizeId` = ? WHERE `productID`= ?";
+    "UPDATE products SET productName= ?, productDes= ?, productPrice= ?, productImage= ?, categoryId = ?, colorId = ?, sizeId = ? WHERE productID= ?";
   const values = [
     req.body.productName,
     req.body.productDes,
@@ -108,7 +108,7 @@ export const editData = (req, res) => {
 
 export const addData = (req, res) => {
   const query =
-    "INSERT INTO products(`productName`, `productDes`, `productPrice`, `categoryId`, `colorId`, `sizeId`, `productImage`) VALUES (?)";
+    "INSERT INTO products(productName, productDes, productPrice, categoryId, colorId, sizeId, productImage) VALUES (?)";
   const values = [
     req.body.productName,
     req.body.productDes,
@@ -126,7 +126,7 @@ export const addData = (req, res) => {
 
 export const deleteProduct = (req, res) => {
   const productId = req.params.id;
-  const q = "DELETE FROM products WHERE `productID` = ?";
+  const q = "DELETE FROM products WHERE productID = ?";
 
   db.query(q, [productId], (err, data) => {
     if (err) {

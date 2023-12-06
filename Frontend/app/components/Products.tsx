@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useRouter } from "next/navigation";
 
 interface Product {
@@ -23,7 +23,7 @@ function Products() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8800/api/data/view-products"
+          "http://localhost:5000/api/data/view-products"
         );
         setProducts(res.data);
       } catch (error) {
@@ -37,9 +37,9 @@ function Products() {
   const handleDelete = async (productId: number) => {
     try {
       await axios.delete(
-        `http://localhost:8800/api/data/view-products/${productId}`
+        `http://localhost:5000/api/data/view-products/${productId}`
       );
-      router.push("/");
+      router.push("/view-products");
     } catch (err) {
       console.log(err);
     }
@@ -98,13 +98,13 @@ function Products() {
                   <div className="w-10 h-10 relative overflow-hidden rounded-full transition-transform transform hover:scale-125 duration-300">
                     <Image
                       className="object-cover w-full h-full"
-                      src={product.productImage}
+                      src={`http://localhost:5000/upload/${product.productImage}`}
                       alt="Rounded avatar"
                       layout="fill"
                     />
                   </div>
                 </td>
-                <td className="px-6 py-4">{product.productName}</td>
+                <td className="px-6 py-4">{product.productImage}</td>
                 <td className="px-6 py-4">{product.productDes}</td>
                 <td className="px-6 py-4">${product.productPrice}</td>
                 <td className="px-6 py-4">{product.categoryName}</td>

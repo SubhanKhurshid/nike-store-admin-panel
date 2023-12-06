@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import nike from "../../public/shubham-mittal-sCXmwaVrBio-unsplash.jpg";
 import Image from "next/image";
 import axios from "axios";
-import { useParams } from "next/navigation";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 interface Categories {
   categoryId: number;

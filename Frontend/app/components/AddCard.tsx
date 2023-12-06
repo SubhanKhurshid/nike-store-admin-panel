@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import nike from "../../public/shubham-mittal-sCXmwaVrBio-unsplash.jpg";
 import axios from "axios";
-import toast from "react-hot-toast/headless";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 interface Categories {

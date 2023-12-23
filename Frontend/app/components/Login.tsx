@@ -39,7 +39,7 @@ function Login() {
   return (
     <div
       className="flex items-center justify-center min-h-screen"
-      style={{ transform: "scale(0.7)" }}
+      style={{ transform: "scale(0.9)" }}
     >
       <div className="flex items-start justify-start rounded-xl bg-zinc-800 w-[950px] h-[650px] ">
         <div className="flex items-start justify-start rounded-xl shadow-2xl shadow-lime-600">

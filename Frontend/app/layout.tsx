@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
-import Login from "./components/Login";
 import { usePathname } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 

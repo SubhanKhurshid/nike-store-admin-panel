@@ -15,6 +15,8 @@ interface Orders {
   categoryName: string;
   color_name: string;
   size_name: number;
+  product_id: number;
+  card_name: string;
 }
 
 function Orders() {
@@ -44,37 +46,16 @@ function Orders() {
               Order ID
             </th>
             <th scope="col" className="px-6 py-3">
+              Product ID
+            </th>
+            <th scope="col" className="px-6 py-3">
               Order Date
             </th>
             <th scope="col" className="px-6 py-3">
-              Product Image
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Product Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Product Description
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Product Price
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Color Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Size Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Category Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Quantity
+              Name
             </th>
             <th scope="col" className="px-6 py-3">
               Address
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Total Amount
             </th>
           </tr>
         </thead>
@@ -88,29 +69,10 @@ function Orders() {
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {order.order_id}
                 </td>
+                <td className="px-6 py-4">{order.product_id}</td>
                 <td className="px-6 py-4">{order.order_date}</td>
-                <td className="px-6 py-4">
-                  <div className="w-10 h-10 relative overflow-hidden rounded-full transition-transform transform hover:scale-125 duration-300">
-                    <Image
-                      className="object-cover w-full h-full"
-                      src={order.productImage}
-                      alt="Rounded avatar"
-                      layout="fill"
-                    />
-                  </div>
-                </td>
-
-                <td className="px-6 py-4">{order.productName}</td>
-                <td className="px-6 py-4">{order.productDes}</td>
-                <td className="px-6 py-4">${order.productPrice}</td>
-                <td className="px-6 py-4">{order.color_name}</td>
-                <td className="px-6 py-4">{order.size_name}</td>
-                <td className="px-6 py-4">{order.categoryName}</td>
-                <td className="px-6 py-4">{order.quantity}</td>
+                <td className="px-6 py-4">{order.card_name}</td>
                 <td className="px-6 py-4">{order.address}</td>
-                <td className="px-6 py-4">
-                  ${order.productPrice * order.quantity}
-                </td>
               </tr>
             ))}
         </tbody>

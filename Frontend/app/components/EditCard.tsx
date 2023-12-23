@@ -109,9 +109,9 @@ function EditCard() {
           productName: product.productName,
           productDes: product.productDes,
           productPrice: product.productPrice,
-          // categoryId: selectedCategory,
-          // colorId: selectedColor,
-          // sizeId: selectedSize,
+          categoryId: selectedCategory,
+          colorId: selectedColor,
+          sizeId: selectedSize,
           productImg: file ? imageUrl : "",
         }
       );
@@ -191,7 +191,7 @@ function EditCard() {
                 value={product.productPrice}
                 onChange={(e) => handleChange(e)}
               />
-              {/* <label className="font-bold italic">Select Category</label>
+              <label className="font-bold italic">Select Category</label>
               <select
                 className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="categoryId"
@@ -211,8 +211,8 @@ function EditCard() {
                     {item.categoryId}
                   </option>
                 ))}
-              </select> */}
-              {/* 
+              </select>
+
               <label className="font-bold italic">Select Colors</label>
               <select
                 className="text-black border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
@@ -233,8 +233,8 @@ function EditCard() {
                     {item.color_id}
                   </option>
                 ))}
-              </select> */}
-              {/* <label className="font-bold italic">Select Sizes</label>
+              </select>
+              <label className="font-bold italic">Select Sizes</label>
               <select
                 className="text-black  border-4 border-pink-900 rounded-md py-2 px-4 focus:outline-none focus:border-pink-900"
                 name="sizeId"
@@ -254,7 +254,7 @@ function EditCard() {
                     {item.size_id}
                   </option>
                 ))}
-              </select> */}
+              </select>
               <div className="flex flex-col space-y-4 pl-20">
                 <label className="text-white font-bold pl-12">
                   Product Image

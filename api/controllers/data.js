@@ -1,30 +1,6 @@
 import { db } from "../db.js";
 export const checkOrders = (req, res) => {
-  const q = `
-    SELECT
-      od.order_id,
-      o.order_date,
-      o.total_amount,
-      od.quantity,
-      od.size_id,
-      od.color_id,
-      od.product_id,
-      c.categoryId,
-      c.name AS categoryName,
-      s.size_name,
-      co.color_name,
-      p.productName,
-      p.productDes,
-      p.productPrice,
-      p.productImage
-    FROM
-      order_details od
-      JOIN orders o ON od.order_id = o.order_id
-      LEFT JOIN sizes s ON od.size_id = s.size_id
-      LEFT JOIN colors co ON od.color_id = co.color_id
-      LEFT JOIN products p ON od.product_id = p.productID
-      LEFT JOIN categories c ON p.categoryId = c.categoryId;
-  `;
+  const q = "select * from orders";
 
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
@@ -128,15 +104,8 @@ export const deleteProduct = (req, res) => {
   const productId = req.params.id;
   const q = "DELETE FROM products WHERE productID = ?";
 
-  db.query(q, [productId], (err, data) => {
-    if (err) {
-      return res.status(500).json(err);
-    }
-
-    if (data.affectedRows === 0) {
-      return res.status(404).json("Product not found");
-    }
-
+  db.query(q, productId, (err, data) => {
+    if (err) return res.status(500).json(err);
     return res.json("Product has been deleted!");
   });
 };

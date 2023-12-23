@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Image from "next/legacy/image";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 interface Product {
   productID: number;
@@ -39,7 +40,9 @@ function Products() {
       await axios.delete(
         `http://localhost:5000/api/data/view-products/${productId}`
       );
-      router.push("/view-products");
+      toast.success("Product Deleted");
+
+      router.push("/add-products");
     } catch (err) {
       console.log(err);
     }
@@ -104,7 +107,7 @@ function Products() {
                     />
                   </div>
                 </td>
-                <td className="px-6 py-4">{product.productImage}</td>
+                <td className="px-6 py-4">{product.productName}</td>
                 <td className="px-6 py-4">{product.productDes}</td>
                 <td className="px-6 py-4">${product.productPrice}</td>
                 <td className="px-6 py-4">{product.categoryName}</td>
